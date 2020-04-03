@@ -98,7 +98,9 @@ namespace Obloq {
         //% blockId=SERVERS_China block="China"
         China,
         //% blockId=SERVERS_Global block="Global"
-        Global
+        Global,
+        //% blockId=SERVERS_SIOT block="SIOT"
+        SIOT,
     }
 
     export class PacketaMqtt {
@@ -319,6 +321,7 @@ namespace Obloq {
         if (OBLOQ_MQTT_DEFAULT_SERVER) {
 
                 OBLOQ_MQTT_SERVER = SIOT
+                 OBLOQ_MQTT_PORT = OBLOQ_MQTT_USER_IOT_PORT
 
             OBLOQ_MQTT_PORT = OBLOQ_MQTT_EASY_IOT_PORT
         } else { 
@@ -507,8 +510,9 @@ namespace Obloq {
                     Obloq_start_connect_mqtt(SERVERS.China, "connect " + type)
                 } else if (OBLOQ_MQTT_SERVER = OBLOQ_MQTT_EASY_IOT_SERVER_GLOBAL) {
                     Obloq_start_connect_mqtt(SERVERS.Global, "connect " + type)
-                } else {
-                    //do nothing
+                } 
+                else {
+                    Obloq_start_connect_mqtt_siot(OBLOQ_MQTT_SERVER, "connect " + type)
                 }
                 if (OBLOQ_MQTT_INIT) {
                     OBLOQ_WRONG_TYPE = OBLOQ_STR_TYPE_IS_NONE
@@ -599,6 +603,7 @@ namespace Obloq {
      * @param IOT_TOPIC to IOT_TOPIC ,eg: "yourIotTopic"
      * @param receive to receive ,eg: SerialPin.P1
      * @param send to send ,eg: SerialPin.P2
+     * @param SIOT to SIOT ,eg: "192.168.1.2"
     */
     //% weight=102
     //% receive.fieldEditor="gridpicker" receive.fieldOptions.columns=3
